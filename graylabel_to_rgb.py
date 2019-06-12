@@ -27,10 +27,10 @@ def label_img_to_color():
     }
     return label_to_color
 
-label_path = "/home/hoang/Desktop/"
-color_path = "/home/hoang/Desktop/label/"
+label_path = "/home/aass/Hoang-Cuong/datasets/YCB-Video/0050-val/mask_rcnn/"
+color_path = "/home/aass/Hoang-Cuong/datasets/YCB-Video/0050-val/color_mask_40eps/"
 
-label_addrs = glob.glob(label_path + '*-label.png')
+label_addrs = glob.glob(label_path + '*-color.png')
 label_to_color = label_img_to_color()
 
 for label_addr in label_addrs:

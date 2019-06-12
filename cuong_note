@@ -1,0 +1,3 @@
+# To generate associations.txt file (file saved in pnf_to_file folder)
+python associate_klg_elasticfusion.py depth.txt rgb.txt
+
