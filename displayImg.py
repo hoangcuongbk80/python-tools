@@ -9,9 +9,12 @@ fig = plt.figure(figsize=(25,17))
 
 def load_image(addr):
     img = cv2.imread(addr, -1)
+    #img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    #cv2.imwrite("cc.png", img)
+    #cv2.waitKey(7)
     #img = cv2.resize(img, (28, 28), interpolation=cv2.INTER_CUBIC)
     #img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    #img = img.astype(np.float32)
+    img = img.astype(np.float32)
     return img
 
 
@@ -52,7 +55,7 @@ instances_addrs = glob.glob(instances_path + '*.png')
  """
 
 # ex: $ python displayImg.py 0879
-print 'Argument List:', str(sys.argv[1])
+""" print 'Argument List:', str(sys.argv[1])
 
 img_name = '/home/hoang/Datasets/NYUv2/data/images/0000' + str(sys.argv[1]) + '.jpg'
 img_rgb = load_image(img_name)
@@ -78,4 +81,9 @@ plt.subplot(2, 2, 3)
 plt.title("class label")
 plt.imshow(img_label, aspect='auto')
 
+plt.show() """
+
+depth_dir = '/home/hoang/Desktop/000066-label.png' 
+img_label = load_image(depth_dir)
+plt.imshow(img_label, aspect='auto')
 plt.show()
