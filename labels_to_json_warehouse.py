@@ -168,8 +168,8 @@ def write_to_json(instance_img, label_img, img_number):
         data[obj_name]['regions'] = regions
     return stop
 
-min_seq = 28
-max_seq = 40
+min_seq = 67
+max_seq = 72
 
 for k in range(min_seq, max_seq):
     data.clear()    

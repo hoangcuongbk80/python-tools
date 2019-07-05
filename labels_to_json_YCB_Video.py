@@ -5,13 +5,7 @@ import matplotlib.pyplot as plt
 import re
 import numpy as np
 
-data_path = '/media/aass/783de628-b7ff-4217-8c96-7f3764de70d9/RGBD_DATASETS/YCB_Video_Dataset/data/'
 visual = False # only use True with 1 image for testing because there is a bug in openCV drawing
-
-if data_path[len(data_path)-1] != '/':
-    print data_path
-    print 'The data path should have / in the end'
-    exit()
 
 data = {}
 stop = True
@@ -168,6 +162,15 @@ def write_to_json(instance_img, label_img, img_number):
         data[obj_name]['regions'] = regions
     return stop
 
+#===================== Real data ====================
+''' 
+data_path = '/media/aass/783de628-b7ff-4217-8c96-7f3764de70d9/RGBD_DATASETS/YCB_Video_Dataset/data/'
+
+if data_path[len(data_path)-1] != '/':
+    print data_path
+    print 'The data path should have / in the end'
+    exit()
+
 min_seq = 85
 max_seq = 92
 
@@ -178,19 +181,38 @@ for k in range(min_seq, max_seq):
     label_path = data_path + str_seq + '/'
     label_addrs = glob.glob(label_path + '*-label.png')
 
-    #for i in range(5):
     for i in range(len(label_addrs)):
         print 'Seq, Image: {}/{} {}/{}'.format(k, max_seq, i, len(label_addrs))
         pos1 = len(label_path)
         pos2 = len(label_path) + 6
-        #print label_addrs[i][pos2:]
-        #if label_addrs[i][pos2:] == '_color_labels.png':
-        #    continue
         img_number = label_addrs[i][pos1:pos2]
-        #print("number:", img_number)
         label_img = load_image(label_addrs[i])
         write_to_json(label_img, label_img, img_number)
     
     json_addr = label_path + 'via_region_data.json'  
     with open(json_addr, 'w') as outfile:  
-        json.dump(data, outfile, sort_keys=True)
+        json.dump(data, outfile, sort_keys=True) '''
+
+#===================== Synthetic data ====================
+
+data_path = '/media/aass/783de628-b7ff-4217-8c96-7f3764de70d9/RGBD_DATASETS/YCB_Video_Dataset/data_syn/'
+json_addr = '/media/aass/783de628-b7ff-4217-8c96-7f3764de70d9/RGBD_DATASETS/YCB_Video_Dataset/json/data_syn/40kTo60k/via_region_data_4.json'
+
+if data_path[len(data_path)-1] != '/':
+    print (data_path)
+    print ('The data path should have / in the end')
+    exit()
+
+min_img = 55000
+max_img = 60000
+
+for i in range(min_img, max_img):
+    print('Image: {}/{}'.format(i, max_img))
+    count = 1000000+i
+    img_number = str(count)[1:]
+    label_addr = data_path + img_number + '-label.png'
+    label_img = load_image(label_addr)
+    write_to_json(label_img, label_img, img_number)
+    
+with open(json_addr, 'w') as outfile:  
+    json.dump(data, outfile, sort_keys=True)
